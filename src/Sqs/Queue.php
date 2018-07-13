@@ -95,7 +95,7 @@ class Queue extends SqsQueue
 
         $body = [
             'job' => $class . '@handle',
-            'data' => isset($body['data']) ? $body['data'] : $payload['Body']
+            'data' => isset($body['data']) ? $body['data'] :  $payload['Body']
         ];
 
         $payload['Body'] = json_encode($body);
