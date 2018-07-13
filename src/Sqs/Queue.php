@@ -87,13 +87,15 @@ class Queue extends SqsQueue
      */
     private function modifyPayload($payload, $class)
     {
-        if (! is_array($payload)) $payload = json_decode($payload, true);
+        if ( ! is_array($payload)) {
+            $payload = json_decode($payload, true);
+        }
 
         $body = json_decode($payload['Body'], true);
 
         $body = [
             'job' => $class . '@handle',
-            'data' => isset($body['data']) ? $body['data'] : $body
+            'data' => isset($body['data']) ? $body['data'] :  [ $payload['Body'] ]
         ];
 
         $payload['Body'] = json_encode($body);
